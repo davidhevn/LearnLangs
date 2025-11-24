@@ -17,7 +17,12 @@
     string gamesAriaExpanded = isGames ? "true" : "false";
 }
 
-<aside class="app-sidebar bg-white border-end">
+<!-- Sidebar (được điều khiển bởi nút ☰ có id="btnSidebar") -->
+<aside id="appSidebar"
+       class="app-sidebar bg-body border-end"
+       role="navigation"
+       aria-label="Main menu">
+
     <div class="p-3 pb-2 d-flex align-items-center gap-2 border-bottom">
         <i class="bi bi-grid text-primary"></i>
         <span class="fw-semibold">Menu</span>
@@ -30,9 +35,7 @@
             <i class="bi bi-translate me-2"></i> Translate
         </a>
 
-        
-
-        <!-- Conversation (đồng bộ với Layout: dùng ChatController) -->
+        <!-- Conversation -->
         <a class="nav-link @active("Chat")"
            asp-controller="Chat" asp-action="Index" data-hard-nav="true">
             <i class="bi bi-chat-dots me-2"></i> Conversation
@@ -95,15 +98,13 @@
                    asp-controller="Exams" asp-action="Index" data-hard-nav="true">
                     <i class="bi bi-trophy me-1"></i> Thi (Bảng & xếp hạng)
                 </a>
-                
+
                 <a class="nav-link small @(ctrl=="games" && !Context.Request.Path.Value!.Contains("/play/") ? "active" : "")"
                    asp-controller="Games" asp-action="Index" data-hard-nav="true">
                     Danh sách Level
                 </a>
             </div>
         </div>
-
-        
 
         <!-- Courses -->
         <a class="nav-link @active("Courses")"
