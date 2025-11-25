@@ -27,7 +27,7 @@
    Layout shell
    ========================================================= */
 .app-wrap {
-    min-height: calc(100vh - 56px - 56px); /* trừ topbar + footer */
+    /* chỉ trừ topbar */
 }
 
 /* =========================================================
@@ -469,3 +469,75 @@ html[data-bs-theme="dark"] .app-footer {
             color: var(--ll-primary);
             border-color: var(--ll-primary);
         }
+
+
+/* ==== HARD-FIX: Không cho content đè lên footer ==== */
+
+/* Bảo đảm page cao tối thiểu full viewport và dùng flex layout */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Vùng chứa app (sidebar + content) chiếm phần còn lại của body */
+.app-wrap {
+    flex: 1 0 auto; /* fill chiều cao còn lại */
+    min-height: 0; /* tránh con tính % chiều cao vô tận */
+    overflow: visible; /* để bóng/box-shadow không cắt footer */
+}
+
+/* Content có khoảng đệm đáy để chắc chắn không chạm footer */
+.app-content {
+    position: relative;
+    z-index: 0;
+    padding-bottom: 2.5rem; /* thêm không gian đáy */
+}
+
+/* Footer luôn nổi phía trên mọi thứ nếu có stacking context lạ */
+.app-footer {
+    position: relative;
+    z-index: 3;
+}
+
+/* NGĂN card kéo dài vô tận (làm chồng footer) */
+.card {
+    height: auto;
+}
+
+/* (Tùy chọn) nếu có phần tử sticky trong content quá cao, tắt sticky */
+@media (max-width: 99999px) {
+    .app-content .sticky,
+    .app-content .card.sticky {
+        position: static;
+    }
+}
+
+
+
+
+/* ===== Fill in the blank (game) ===== */
+
+/* Text câu hỏi */
+.fi-question-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* Một cụm gạch chân (ứng với 1 từ trong đáp án) */
+.fi-blank {
+    display: inline-block;
+    margin: 0 0.18rem;
+    padding: 0 0.12rem 0.25rem;
+    border-bottom: 3px solid #a855f7; /* màu tím */
+    border-radius: 4px;
+    /* mẹo: ẩn chữ '_' nhưng vẫn giữ độ rộng theo số ký tự */
+    color: transparent;
+    letter-spacing: 0.2em;
+    line-height: 1.4;
+}

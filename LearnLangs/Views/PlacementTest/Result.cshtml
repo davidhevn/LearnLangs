@@ -1,0 +1,58 @@
+﻿@model LearnLangs.Models.TestResult
+
+@{
+    ViewData["Title"] = "Kết quả placement test";
+}
+
+<div class="mb-4">
+    <h1 class="h4 fw-bold">Kết quả Placement test</h1>
+    <p class="text-muted mb-0">
+        Bài test: <strong>@Model.PlacementTest?.TestName</strong>
+    </p>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h2 class="h5 mb-3">Tổng quan</h2>
+
+        <p class="mb-1">
+            Điểm: <strong>@Model.TotalScore / @Model.MaxScore</strong>
+            (@Model.Percentage.ToString("0")%)
+        </p>
+        <p class="mb-1">
+            Trình độ ước lượng:
+            <strong>
+                @{
+                    string cefr = Model.Level switch
+                    {
+                        LearnLangs.Models.ProficiencyLevel.Beginner => "A1",
+                        LearnLangs.Models.ProficiencyLevel.Elementary => "A2",
+                        LearnLangs.Models.ProficiencyLevel.Intermediate => "B1",
+                        LearnLangs.Models.ProficiencyLevel.UpperIntermediate => "B2",
+                        LearnLangs.Models.ProficiencyLevel.Advanced => "C1",
+                        LearnLangs.Models.ProficiencyLevel.Proficient => "C2",
+                        _ => ""
+                    };
+                }
+                @cefr (@Model.Level)
+            </strong>
+        </p>
+        <p class="text-muted small mb-0">
+            Hoàn thành lúc: @Model.CompletedDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+        </p>
+    </div>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(Model.Recommendation))
+{
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="h6 mb-2">Gợi ý lộ trình</h2>
+            <p class="mb-0">@Model.Recommendation</p>
+        </div>
+    </div>
+}
+
+<a asp-action="Index" class="btn btn-outline-secondary mb-4">
+    ← Quay lại danh sách bài test
+</a>

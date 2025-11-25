@@ -53,6 +53,13 @@
             <i class="bi bi-mic me-2"></i> Pronunciation
         </a>
 
+        <!-- Placement test / Test trình độ -->
+        <a class="nav-link @active("PlacementTest")"
+           asp-controller="PlacementTest" asp-action="Index" data-hard-nav="true">
+            <i class="bi bi-graph-up-arrow me-2"></i> Placement test
+            @* hoặc: <span>Test trình độ</span> *@
+        </a>
+
         <!-- Flashcards group -->
         <a class="nav-link d-flex align-items-center @(isFlashcards ? "active" : "")"
            data-bs-toggle="collapse"

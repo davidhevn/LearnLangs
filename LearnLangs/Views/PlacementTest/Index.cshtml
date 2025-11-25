@@ -1,0 +1,74 @@
+﻿@model IEnumerable<LearnLangs.Models.PlacementTest>
+
+@{
+    ViewData["Title"] = "Placement test";
+}
+
+<div class="page-header mb-4">
+    <h1 class="h3 mb-1 text-primary fw-bold">Placement test</h1>
+    <p class="text-muted mb-0">
+        Take a quick test to let the system suggest the appropriate level and learning path.
+    </p>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        Hiện chưa có bài test nào được cấu hình. Vui lòng thêm dữ liệu vào bảng <strong>PlacementTests</strong> trong database.
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var test in Model)
+        {
+            var colorClass = test.TestType switch
+            {
+                LearnLangs.Models.TestType.GeneralEnglish => "bg-danger",
+                LearnLangs.Models.TestType.ForSchools => "bg-pink",
+                LearnLangs.Models.TestType.BusinessEnglish => "bg-info",
+                LearnLangs.Models.TestType.YoungLearners => "bg-purple",
+                _ => "bg-secondary"
+            };
+
+            <div class="col-6 col-md-3 text-center">
+                <div class="placement-circle @colorClass mb-2">
+                    <span>@test.TestName</span>
+                </div>
+                <a asp-action="Start"
+                   asp-route-id="@test.TestId"
+                   class="btn btn-sm btn-dark rounded-pill">
+                    Start the test
+                </a>
+            </div>
+        }
+    </div>
+}
+
+@section Scripts {
+    <style>
+        .placement-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 600;
+            margin: 0 auto;
+            box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        .bg-pink {
+            background-color: #ec4899 !important;
+        }
+
+        .bg-purple {
+            background-color: #a855f7 !important;
+        }
+    </style>
+}

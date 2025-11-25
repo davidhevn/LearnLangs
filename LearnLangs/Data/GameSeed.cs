@@ -24,23 +24,23 @@ namespace LearnLangs.Data
             {
                 new GameQuestion {
                     Type = GameType.FillInBlank,
-                    Prompt = "My mother was ___ __ singing when she was a young girl.",
+                    // Dùng {blank} làm chỗ trống, tí nữa view sẽ tự render dấu gạch
+                    Prompt = "My mother was {blank} singing when she was a young girl.",
                     CorrectText = "interested in"
                 },
                 new GameQuestion {
                     Type = GameType.FillInBlank,
-                    Prompt = "It ___ __________ for him to keep that letter.",
+                    Prompt = "It {blank} for him to keep that letter.",
                     CorrectText = "was unnecessary"
                 },
-                // bạn có thể thêm bớt các câu sau cho phong phú
                 new GameQuestion {
                     Type = GameType.FillInBlank,
-                    Prompt = "They are looking ___ a new apartment.",
+                    Prompt = "They are looking {blank} a new apartment.",
                     CorrectText = "for"
                 },
                 new GameQuestion {
                     Type = GameType.FillInBlank,
-                    Prompt = "He is ___ good ___ math.",
+                    Prompt = "He is {blank} good {blank} math.",
                     CorrectText = "very at"
                 }
             };
